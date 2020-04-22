@@ -27,5 +27,7 @@ Kubeflow pipelines is on a beta status. This component has version 0.3.0 in dumm
 	* Install it via: `pip3 install kfp --upgrade --user`. Then check with `which dsl-compile`.
 	* You can use the Kubeflow Pipelines SDK to build machine learning pipelines. You can use the SDK to execute your pipeline, or alternatively you can upload the pipeline to the Kubeflow Pipelines UI for execution
 	* Each pipeline is defined as a Python program. Before you can submit a pipeline to the Kubeflow Pipelines service, you must compile the pipeline to an intermediate representation. The intermediate representation takes the form of a YAML file compressed into a .tar.gz file. Use the dsl-compile command to compile the pipeline that you chose
+	* Link to [Experiment with the Pipelines Samples](https://www.kubeflow.org/docs/pipelines/tutorials/build-pipeline/)
+	* This one would be really helpful: **Link to [Introduction to the Pipelines SDK](https://www.kubeflow.org/docs/pipelines/sdk/sdk-overview/)**
 
 - Link to [kfp package sphix documentation](https://kubeflow-pipelines.readthedocs.io/en/latest/)
