@@ -31,3 +31,7 @@ Kubeflow pipelines is on a beta status. This component has version 0.3.0 in dumm
 	* This one would be really helpful: **Link to [Introduction to the Pipelines SDK](https://www.kubeflow.org/docs/pipelines/sdk/sdk-overview/)**
 
 - Link to [kfp package sphix documentation](https://kubeflow-pipelines.readthedocs.io/en/latest/)
+
+- Check this note:
+
+	Due to [kubeflow/pipelines#1700](https://github.com/kubeflow/pipelines/issues/1700), the container builder in Kubeflow Pipelines currently prepares credentials for Google Cloud Platform (GCP) only. As a result, the container builder supports only Google Container Registry. However, you can store the container images on other registries, provided you set up the credentials correctly to fetchthe image.
