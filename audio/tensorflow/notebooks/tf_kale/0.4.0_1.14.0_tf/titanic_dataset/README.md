@@ -10,8 +10,12 @@ see: [jupyterlab-kubeflow-kale](https://github.com/kubeflow-kale/jupyterlab-kube
 
 sudo kale --nb titanic_dataset_ml.ipynb --experiment_name default --pipeline_name titanicml --debug
 
+sudo kale --nb titanic_dataset_ml.ipynb --experiment_name default --pipeline_name titanicml --kfp_host <host>:<port> --upload_pipeline --debug
 
 **old:**
+
 wget https://web.stanford.edu/class/archive/cs/cs109/cs109.1166/stuff/titanic.csv
+
 mkdir data
+
 mv titanic.csv data/
