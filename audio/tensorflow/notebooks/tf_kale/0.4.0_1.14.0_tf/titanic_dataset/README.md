@@ -8,9 +8,13 @@ wget https://raw.githubusercontent.com/kubeflow-kale/examples/master/titanic-ml-
 
 see: [jupyterlab-kubeflow-kale](https://github.com/kubeflow-kale/jupyterlab-kubeflow-kale)
 
+
+```
 sudo kale --nb titanic_dataset_ml.ipynb --experiment_name default --pipeline_name titanicml --debug
 
 sudo kale --nb titanic_dataset_ml.ipynb --experiment_name default --pipeline_name titanicml --kfp_host <host>:<port> --upload_pipeline --debug
+
+```
 
 **old:**
 
