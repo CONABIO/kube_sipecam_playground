@@ -36,3 +36,8 @@ Kubeflow pipelines is on a beta status. This component has version 0.3.0 in dumm
 
 	* Due to [kubeflow/pipelines#1700](https://github.com/kubeflow/pipelines/issues/1700), the container builder in Kubeflow Pipelines currently prepares credentials for Google Cloud Platform (GCP) only. As a result, the container builder supports only Google Container Registry. However, you can store the container images on other registries, provided you set up the credentials correctly to fetchthe image.
 	* A possibly solution to this note: [Pushing to Different Registries](https://github.com/GoogleContainerTools/kaniko#pushing-to-different-registries)
+    
+
+* Is there a kubeflow tensorflow official image?
+
+    * See: [pull 73](https://github.com/tensorflow/tfx/pull/73/files)
