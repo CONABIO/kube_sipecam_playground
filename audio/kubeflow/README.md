@@ -40,4 +40,10 @@ Kubeflow pipelines is on a beta status. This component has version 0.3.0 in dumm
 
 * Is there a kubeflow tensorflow official image?
 
-    * See: [pull 73](https://github.com/tensorflow/tfx/pull/73/files)
+	* See: [pull 73](https://github.com/tensorflow/tfx/pull/73/files)
+
+* Examples:
+
+	* [pull 596](https://github.com/kubeflow/examples/pull/596/files)
+	* [download_dataset.py](https://github.com/fdasilva59/examples/blob/59961e0eb28f111ea4b647390341ab795ca832ba/pix2pix_pipelines_tf2.0/download_dataset.py)
+	* [train_pix2pix.py](https://github.com/fdasilva59/examples/blob/59961e0eb28f111ea4b647390341ab795ca832ba/pix2pix_pipelines_tf2.0/train_pix2pix.py)
