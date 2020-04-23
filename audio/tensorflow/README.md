@@ -8,7 +8,7 @@ Tutorials in: [tensorflow tutorials](https://www.tensorflow.org/tutorials/)
 
 	* Link uses airflow. Also in that link refers to some components such as [ExampleGen](https://www.tensorflow.org/tfx/guide/examplegen) or [StatisticsGen](https://www.tensorflow.org/tfx/guide/statsgen). This components are part from tfx as they are imported as this [lines](https://github.com/tensorflow/tfx/blob/master/tfx/examples/airflow_workshop/setup/dags/taxi_pipeline_solution.py#L33)
 
-* **But I recommend see links and only take page of airflow workshop as a guide**
+* **But I recommend see links and only use page of airflow workshop as a guide**
 
 	* Link refers to [Tfx Data Validation](https://www.tensorflow.org/tfx/tutorials/data_validation/tfdv_basic) as tools to inspect datasets. Also see [TensorFlow Data Validation](https://www.tensorflow.org/tfx/tutorials/data_validation/tfdv_basic)
         * Link refers to [Tfx Transform](https://www.tensorflow.org/tfx/guide/transform) for feature engineering. Also see [Preprocessing data with Tensorflow Transform](https://www.tensorflow.org/tfx/tutorials/transform/census)
