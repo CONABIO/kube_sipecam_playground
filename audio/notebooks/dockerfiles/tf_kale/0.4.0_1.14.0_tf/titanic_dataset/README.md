@@ -1,5 +1,10 @@
 see: [kubeflow-kale examples](https://github.com/kubeflow-kale/examples)
 
+```
+pip3 install --user numpy matplotlib pandas seaborn sklearn
+```
+
+
 curl https://raw.githubusercontent.com/kubeflow-kale/examples/master/titanic-ml-dataset/titanic_dataset_ml.ipynb -o titanic_dataset_ml.ipynb
 
 wget https://raw.githubusercontent.com/kubeflow-kale/examples/master/titanic-ml-dataset/data/test.csv
