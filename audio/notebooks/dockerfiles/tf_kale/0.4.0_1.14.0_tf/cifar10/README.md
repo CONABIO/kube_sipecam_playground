@@ -21,3 +21,11 @@ https://discuss.pytorch.org/t/how-to-convert-layer-list-in-nn-module-to-cpu-or-g
 Cifar10 kale example:
 
 https://github.com/kubeflow-kale/examples/blob/master/pytorch-classification/cifar10_classification.ipynb
+
+Check files in this dir:
+
+```
+cifar10_classification.ipynb
+torch-example-cifar10-h5con.kale.py
+
+```
