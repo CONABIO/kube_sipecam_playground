@@ -22,6 +22,9 @@ Cifar10 kale example:
 
 https://github.com/kubeflow-kale/examples/blob/master/pytorch-classification/cifar10_classification.ipynb
 
+
+Last notebook used [deployments/audio/kale-jupyterlab-kubeflow_0.4.0_1.14.0_tf_cpu](https://github.com/CONABIO/kube_sipecam/blob/master/deployments/audio/kale-jupyterlab-kubeflow_0.4.0_1.14.0_tf_cpu.yaml) **observe is cpu** for kale+kubeflow functionality according to [kube_sipecam/issues/8](https://github.com/CONABIO/kube_sipecam/issues/8). [audio/tf_kale/0.4.0_1.14.0_tf/Dockerfile](https://github.com/CONABIO/kube_sipecam/blob/master/dockerfiles/audio/tf_kale/0.4.0_1.14.0_tf/Dockerfile) is just used to transform notebook to kubeflow pipeline (as it doesn't requires a node with gpu) but the docker image that is used inside notebook (and also each step of pipeline) is: [dockerfiles/audio/tf_kale/0.4.0_2.1.0/Dockerfile](https://github.com/CONABIO/kube_sipecam/blob/master/dockerfiles/audio/tf_kale/0.4.0_2.1.0/Dockerfile)
+
 Check files in this dir:
 
 ```
