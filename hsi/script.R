@@ -200,3 +200,6 @@ save(modelos,file = "/shared_volume/modelos.RData")
                              pROC_table = procs,
                              models_meta_data=models_meta_data)
   class(sp.temp.best.model) <- c("list", "sp.temporal.modeling","sp.temporal.env","sp.temp.best.model")
+
+
+#save(sp.temp.best.model,file = "/shared_volume/best_model.RData")
