@@ -94,7 +94,8 @@ modelos <- lapply(1:969,function(x){
 
     })
 
-#parallel:
+###############
+###############parallel:
 future::plan(tweak(multiprocess, workers = n_cores))
 modelos <- 1:dim(combinatoria_vars)[2] %>%
   furrr::future_map(function(x){
@@ -156,3 +157,46 @@ modelos <- 1:dim(combinatoria_vars)[2] %>%
                 pRoc=p_roc[,c("auc_ratio","auc_pmodel")],
                 metadata=ellip))
   },.progress = TRUE)
+
+###############
+###############(end) parallel
+
+save(modelos,file = "/shared_volume/modelos.RData")
+
+#shared_volume is mapped in /LUSTRE/MADMEX/tasks/2020
+
+  procs <- lapply(1:length(modelos),function(x) {
+    proc <- modelos[[x]][[2]]
+  })
+  procs <- do.call("rbind.data.frame",procs)
+  procs$auc_pmodel <- as.factor(procs$auc_pmodel)
+
+  m1 <- lm(auc_ratio ~ auc_pmodel, data = procs)
+  model_means <- sapply(levels(procs$auc_pmodel), function(y){
+    model_index <- which(procs$auc_pmodel == y)
+    media_model <- mean(procs[model_index,1],na.rm=T)
+    return(media_model)
+  })
+
+  best_model <-names(model_means)[which(model_means==max(model_means,na.rm = TRUE))]
+
+  models_meta_data <- lapply(1:length(modelos), function(x){
+    matadata <- modelos[[x]][[3]]
+  })
+
+  best_model_metadata <- modelos[[as.numeric(best_model)]][[3]]
+
+  sp.temp.best.model <- list(sp_coords = this_species$sp_coords,
+                             coords_env_data_all = this_species$coords_env_data_all,
+                             env_data_train = this_species$env_data_train,
+                             env_data_test = this_species$env_data_test,
+                             test_data = this_species$test_data,
+                             sp_occs_year = this_species$sp_occs_year,
+                             oocs_data = this_species$oocs_data,
+                             lon_lat_vars = this_species$lon_lat_vars,
+                             layers_path_by_year = this_species$layers_path_by_year,
+                             best_model_metadata= best_model_metadata,
+                             ellipsoid_level =ellipsoid_level,
+                             pROC_table = procs,
+                             models_meta_data=models_meta_data)
+  class(sp.temp.best.model) <- c("list", "sp.temporal.modeling","sp.temporal.env","sp.temp.best.model")
