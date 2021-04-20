@@ -54,8 +54,6 @@ env_layers <- raster::stack(e_test$layers_path_by_year[[paste0(year_to_search)]]
 
 this_species <- e_test
 
-#10:40 didnt work in 30, testing:
-
 modelos <- lapply(1:969,function(x){
       cat(sprintf("Doing model: %d of %d \n", x , dim(combinatoria_vars)[2]))
 
@@ -94,74 +92,10 @@ modelos <- lapply(1:969,function(x){
 
     })
 
-###############
-###############parallel:
-future::plan(tweak(multiprocess, workers = n_cores))
-modelos <- 1:dim(combinatoria_vars)[2] %>%
-  furrr::future_map(function(x){
-    cat("Doing model: ", x," of ", dim(combinatoria_vars)[2],"\n")
-
-    # Varaibles filtadas por combinatiria de las mas representativas
-    vars_model <- cor_filter[combinatoria_vars[,x]]
-    ellip <- try(cov_center(env_train[,vars_model],
-                            level = ellipsoid_level ,vars = vars_model),silent = T)
-    if(class(ellip)=="try-error") return()
-
-    # Datos de presencia de la sp en el ambiente
-    occs_env <- this_species$env_data_train[,vars_model]
-
-    # Ajuste del modelo de elipsoide
-
-    sp_model <- ellipsoidfit(data = env_layers[[vars_model]],
-                             centroid =ellip$centroid,
-                             covar =  ellip$covariance,
-                             level = ellipsoid_level,
-                             size = 3,
-                             plot = plot3d)
-
-    if(length(ellip$centroid)==3 && plot3d){
-      # Presencias de la sp en el ambiente
-      rgl::points3d(occs_env,size=10)
-
-      # Ejes del elipsoide
-
-      rgl::segments3d(x = ellip$axis_coordinates[[1]][,1],
-                      y = ellip$axis_coordinates[[1]][,2],
-                      z = ellip$axis_coordinates[[1]][,3],
-                      lwd=3)
 
 
-      rgl::segments3d(x = ellip$axis_coordinates[[2]][,1],
-                      y = ellip$axis_coordinates[[2]][,2],
-                      z = ellip$axis_coordinates[[2]][,3],
-                      lwd=3)
-
-      rgl::segments3d(x = ellip$axis_coordinates[[3]][,1],
-                      y = ellip$axis_coordinates[[3]][,2],
-                      z = ellip$axis_coordinates[[3]][,3],
-                      lwd=3)
-
-    }
-
-    valData <- this_species$test_data[,c(1,2)]
-    valData$sp_name <- "sp"
-    valData <- valData[,c(3,1,2)]
-    p_roc<- PartialROC(valData = valData,
-                       PredictionFile = sp_model$suitRaster,
-                       E = E,
-                       RandomPercent = RandomPercent,
-                       NoOfIteration = NoOfIteration)
-    p_roc$auc_pmodel <- paste0(x)
-
-    return(list(model = sp_model$suitRaster,
-                pRoc=p_roc[,c("auc_ratio","auc_pmodel")],
-                metadata=ellip))
-  },.progress = TRUE)
-
-###############
-###############(end) parallel
-
-save(modelos,file = "/shared_volume/modelos.RData")
+#save(modelos,file = "/shared_volume/modelos.RData")
+#save(modelos,file = "/shared_volume/modelos_compressed.RData", compress=TRUE)
 
 #shared_volume is mapped in /LUSTRE/MADMEX/tasks/2020
 
@@ -201,5 +135,55 @@ save(modelos,file = "/shared_volume/modelos.RData")
                              models_meta_data=models_meta_data)
   class(sp.temp.best.model) <- c("list", "sp.temporal.modeling","sp.temporal.env","sp.temp.best.model")
 
+ponca_mask <- raster::raster("/shared_volume/Ponca_DV/poncamask.tif")
 
-#save(sp.temp.best.model,file = "/shared_volume/best_model.RData")
+#create dir /shared_volume/new_model
+
+temporal_projection(this_species = sp.temp.best.model,
+                      save_dir = "/shared_volume/new_model",
+                      sp_mask = ponca_mask,
+                      crs_model = NULL,
+                      sp_name ="pan_onca",
+                      plot3d = FALSE)
+
+#out:
+...
+[1] "/shared_volume/new_model/temporal_modeling_pan_onca/2014"
+[1] "/shared_volume/new_model/temporal_modeling_pan_onca/niche_comparations_results/final_results_pan_onca"
+     comparation suit_change
+-1  2004vs.X2005    44.70591
+-11 2004vs.X2006    39.48869
+-12 2004vs.X2007    36.19155
+-13 2004vs.X2008    38.58205
+-14 2004vs.X2009    36.10716
+-15 2004vs.X2010    39.21707
+-16 2004vs.X2011    26.07860
+-17 2004vs.X2012    19.24669
+-18 2004vs.X2013    12.32983
+-19 2004vs.X2014    10.64748
+
+
+#next is not necessary:
+
+#save(sp.temp.best.model,file = "/shared_volume/sp_best_model.RData")
+
+#save desaggregated:
+
+save(e_test,file = "/shared_volume/results_dir/e_test.RData")
+save(best_model_metadata,file = "/shared_volume/results_dir/best_model_metadata.RData")
+save(ellipsoid_level,file = "/shared_volume/results_dir/ellipsoid_level.RData")
+save(procs,file = "/shared_volume/results_dir/pROC_table.RData")
+save(models_meta_data,file = "/shared_volume/results_dir/models_meta_data.RData")
+
+
+#create dir /shared_volume/results_dir
+
+save(e_test$sp_coords,file = "/shared_volume/results_dir/sp_coords.RData")
+save(e_test$coords_env_data_all,file = "/shared_volume/results_dir/coords_env_data_all.RData")
+save(e_test$env_data_train,file = "/shared_volume/results_dir/env_data_train.RData")
+save(e_test$env_data_test,file = "/shared_volume/results_dir/env_data_test.RData")
+save(e_test$test_data,file = "/shared_volume/results_dir/test_data.RData")
+save(e_test$sp_occs_year,file = "/shared_volume/results_dir/sp_occs_year.RData")
+save(e_test$oocs_data,file = "/shared_volume/results_dir/oocs_data.RData")
+save(e_test$lon_lat_vars,file = "/shared_volume/results_dir/lon_lat_vars.RData")
+save(e_test$layers_path_by_year,file = "/shared_volume/results_dir/layers_path_by_year.RData")
