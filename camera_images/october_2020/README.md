@@ -5,6 +5,10 @@ At the end of the training, the precision, recall, score-F1 and accuracy metrics
 The results highlight the better general behaviour of the weighted averaging, mainly due to the long-tailed distribution of the dataset (since it assigns a weight according to the number of samples of each class), as well as that a threshold value of 0.7 maintains a compromise between precision and recall.
 
 
-Information of input, output data: `/sipecam/ecoinformatica/minikube_sipecam/ecoinf_tests` in sipecamdata server.
+# Information of input, output data
 
-Docker image: `sipecam/ecoinf-kale-gpu:0.5.0`
+`/sipecam/ecoinformatica/minikube_sipecam/ecoinf_tests` in sipecamdata server.
+
+# Docker image 
+
+`sipecam/ecoinf-kale-gpu:0.5.0`
