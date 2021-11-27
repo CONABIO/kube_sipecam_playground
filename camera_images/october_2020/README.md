@@ -6,3 +6,5 @@ The results highlight the better general behaviour of the weighted averaging, ma
 
 
 Information of input, output data: `/sipecam/ecoinformatica/minikube_sipecam/ecoinf_tests` in sipecamdata server.
+
+Docker image: `sipecam/ecoinf-kale-gpu:0.5.0`
